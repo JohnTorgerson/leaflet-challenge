@@ -1,12 +1,18 @@
-// Store our API endpoint as queryUrl.
-let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
+// Store our API earthquakes endpoint as quakeUrl
+let quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
+
+// Store our API tectonic plates endpoint as plateUrl
+let plateUrl = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json";
 
 // Perform a GET request to the query URL/
-d3.json(queryUrl).then(function (data) {
+d3.json(quakeUrl).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
   console.log(data); 
   createFeatures(data.features);
 });
+
+let markerSize = 1000; // Adjust by Magnitude
+let markerColor = "indigo"; // Adjust by Depth
 
 function createFeatures(earthquakeData) {
 
@@ -18,12 +24,12 @@ function createFeatures(earthquakeData) {
 
   // Create a GeoJSON layer that contains the features array on the earthquakeData object.
   // Run the onEachFeature function once for each piece of data in the array.
-  let earthquakes = L.geoJSON(earthquakeData, {
+  let quake = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature
   });
 
   // Send our earthquakes layer to the createMap function/
-  createMap(earthquakes);
+  createMap(quake);
 }
 
 function createMap(earthquakes) {
@@ -45,7 +51,8 @@ function createMap(earthquakes) {
 
   // Create an overlay object to hold our overlay.
   let overlayMaps = {
-    Earthquakes: earthquakes
+    // "Tectonic Plates": tecplates,
+    "Earthquakes": earthquakes
   };
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load.
@@ -66,46 +73,7 @@ function createMap(earthquakes) {
 
 }
 
-// function createMap(earthquakes) {
 
-//     // Create the tile layer that will be the background of our map.
-//     var usMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//       // Credit Leaflet Map makers  
-//       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//     });
-//     var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-// 	  // Credit Leaflet
-//       attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-//     });
-  
-//     // Define a circleRad() function that will give each earthquake a different radius
-//     function circleRad(capacity) {
-//         return Math.sqrt(capacity) * 500;
-//     }
-
-//     // Create a baseMaps object to hold the usMap layer.
-//     var baseMaps = {
-//       "United States Map": usMap,
-//       "Topographical Map": topoMap
-//     };
-  
-//     // Create an overlayMaps object to hold the earthquakes layer.
-//     var overlayMaps = {
-//       "4.5+ Earthquakes": earthquakes
-//     };
-  
-//     // Create the map object with options.
-//     var map = L.map("map-id", {
-//       center: [39.8333, -98.5855],
-//       zoom: 4,
-//       layers: [usMap, earthquakes]
-//     });
-  
-//     // Create a layer control, and pass it baseMaps and overlayMaps. Add the layer control to the map.
-//     L.control.layers(baseMaps, overlayMaps, {
-//       collapsed: false
-//     }).addTo(map);
-//   }
   
 //   function createMarkers(response) {
   
@@ -132,12 +100,4 @@ function createMap(earthquakes) {
 //       // Add the marker to the quakeCenters array.
 //       quakeCenters.push(quakeCircle);
 //     }
-  
-//     // Create a layer group that's made from the bike markers array, and pass it to the createMap function.
-//     createMap(L.layerGroup(quakeCenters));
-//   }
-  
-  
-//   // Perform an API call to the Citi Bike API to get the station information. Call createMarkers when it completes.
-//   d3.json("https://gbfs.citibikenyc.com/gbfs/en/station_information.json").then(createMarkers);
   

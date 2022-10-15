@@ -87,7 +87,7 @@ d3.json(quakeUrl, function(quakeData) {
           case depth > 50:
               return "#766839";
           case depth > 30:
-              return "927C49";
+              return "#927C49";
           case depth > 10:
               return "#9A704E";
           default:
@@ -125,6 +125,37 @@ d3.json(quakeUrl, function(quakeData) {
       console.log(data); 
   });
   
+  // Create a legend to display information about our map.
+    let info = L.control({
+        position: "bottomright"
+  });
+
+  /*Setup*/
+    
+    /*Legend specific*/
+    var legend = L.control({ position: "bottomright" });
+
+    legend.onAdd = function(map) {
+    var div = L.DomUtil.create("div", "legend");
+    div.innerHTML += "<h4>Depth (km)</h4>";
+    div.innerHTML += '<i style="background: #A36153"></i><span>-10 - 10</span><br>';
+    div.innerHTML += '<i style="background: #9A704E"></i><span> 10 - 30</span><br>';
+    div.innerHTML += '<i style="background: #927C49"></i><span> 30 - 50</span><br>';
+    div.innerHTML += '<i style="background: #766839"></i><span> 50 - 70</span><br>';
+    div.innerHTML += '<i style="background: #5A512A"></i><span> 70 - 90</span><br>';
+    div.innerHTML += '<i style="background: #3C391B"></i><span> 90 +</span>';
+
+
+
+    return div;
+    };
+
+    legend.addTo(eqMap);
+
+
+
+
+    
   // Create Legend for color-depth chart
 //   legendChoro(
 //     pos = "topleft",
@@ -147,5 +178,5 @@ d3.json(quakeUrl, function(quakeData) {
 //     values.cex = 0.6,
 //     breaks = c("90+", "70-90", "50-70", "30-50","10=30", "-10-10"),
 //     col = c("#3C391B", "#5A512A", "#766839", "927C49", "#9A704E", "#A36153")
-//   )
+//   ).addTo(eqMap);
 });

@@ -59,9 +59,9 @@ let tiledMap = {
 
 // Create primary load map, using greyscale and earthquake layers
 let eqMap = L.map("map", {
-    center: [32, 10],
+    center: [32, 30],
     zoom: 2,
-    layers: [gray, quakes]
+    layers: [dark, quakes]
 });
 
 // Add a layer control to the earthquake map
@@ -102,9 +102,9 @@ d3.json(quakeUrl, function(quakeData) {
               radius: markerSize(feature.properties.mag),
               fillColor: chooseColor(feature.geometry.coordinates[2]),
               fillOpacity: 0.5,
-              color: "white",
-              stroke: false,
-              weight: 0.3
+              color: "blue",
+              stroke: true,
+              weight: .3
           })
       },
       onEachFeature: function(feature, layer) {
@@ -126,6 +126,26 @@ d3.json(quakeUrl, function(quakeData) {
   });
   
   // Create Legend for color-depth chart
-  // if time allows
-
+//   legendChoro(
+//     pos = "topleft",
+//     title.txt = "Title of the legend",
+//     title.cex = 0.8,
+//     values.cex = 0.6,
+//     breaks,
+//     col,
+//     cex = 1,
+//     values.rnd = 2,
+//     nodata = TRUE,
+//     nodata.txt = "No data",
+//     nodata.col = "white",
+//     frame = FALSE,
+//     symbol = "box",
+//     border = "black",
+//     horiz = FALSE
+//   )
+//   legendChoro(pos = "bottomright", title.txt = "Depths",title.cex = 1,
+//     values.cex = 0.6,
+//     breaks = c("90+", "70-90", "50-70", "30-50","10=30", "-10-10"),
+//     col = c("#3C391B", "#5A512A", "#766839", "927C49", "#9A704E", "#A36153")
+//   )
 });

@@ -74,7 +74,7 @@ d3.json(quakeUrl, function(quakeData) {
   
   // Set marker size params by magnintude from earthquake json
   function markerSize(magnitude) {
-      return magnitude * 2.25;
+      return (magnitude * magnitude * magnitude * .0625);
   }; 
 
   // Set marker color params by depth from earthquake json 
@@ -104,7 +104,7 @@ d3.json(quakeUrl, function(quakeData) {
               fillOpacity: 0.5,
               color: "blue",
               stroke: true,
-              weight: .3
+              weight: .5
           })
       },
       onEachFeature: function(feature, layer) {
@@ -144,39 +144,8 @@ d3.json(quakeUrl, function(quakeData) {
     div.innerHTML += '<i style="background: #766839"></i><span> 50 - 70</span><br>';
     div.innerHTML += '<i style="background: #5A512A"></i><span> 70 - 90</span><br>';
     div.innerHTML += '<i style="background: #3C391B"></i><span> 90 +</span>';
-
-
-
     return div;
     };
 
     legend.addTo(eqMap);
-
-
-
-
-    
-  // Create Legend for color-depth chart
-//   legendChoro(
-//     pos = "topleft",
-//     title.txt = "Title of the legend",
-//     title.cex = 0.8,
-//     values.cex = 0.6,
-//     breaks,
-//     col,
-//     cex = 1,
-//     values.rnd = 2,
-//     nodata = TRUE,
-//     nodata.txt = "No data",
-//     nodata.col = "white",
-//     frame = FALSE,
-//     symbol = "box",
-//     border = "black",
-//     horiz = FALSE
-//   )
-//   legendChoro(pos = "bottomright", title.txt = "Depths",title.cex = 1,
-//     values.cex = 0.6,
-//     breaks = c("90+", "70-90", "50-70", "30-50","10=30", "-10-10"),
-//     col = c("#3C391B", "#5A512A", "#766839", "927C49", "#9A704E", "#A36153")
-//   ).addTo(eqMap);
 });
